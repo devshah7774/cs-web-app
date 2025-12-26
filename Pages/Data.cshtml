@@ -1,0 +1,11 @@
+
+@page "/data"
+@model web_app.Pages.DataModel
+@{
+    ViewData["Title"] = "Employees";
+}
+
+<h2>Employees</h2>
+
+<!-- Render the shared table partial and pass the model -->
+<partial name="~/Pages/Shared/_Table.cshtml" model="Model.Employees" />

@@ -1,0 +1,68 @@
+@using web_app.Pages
+@model IndexModel
+
+<form class="row g-3 bg-secondary rounded p-5 bg-opacity-50 needs-validation"
+      method="post" novalidate>
+  <div class="col-md-4">
+    <label asp-for="fName" class="form-label">Employee First Name</label>
+    <input asp-for="fName" class="form-control" placeholder="Firstname" required />
+    <div class="invalid-feedback">Please enter a first name.</div>
+  </div>
+
+  <div class="col-md-4">
+    <label asp-for="lName" class="form-label">Employee Last name</label>
+    <input asp-for="lName" class="form-control" placeholder="Lastname" required />
+    <div class="invalid-feedback">Please enter a last name.</div>
+  </div>
+
+  <div class="col-md-4">
+    <label asp-for="psNo" class="form-label">Employee PS No.</label>
+    <div class="input-group has-validation">
+      <input asp-for="psNo" class="form-control"
+        inputmode="numeric" pattern="^\d{8}$" maxlength="8" required
+        aria-describedby="psNoFeedback" placeholder="8-digit PS No" />
+      <div id="psNoFeedback" class="invalid-feedback">
+        Please enter an 8-digit PS No.
+      </div>
+    </div>
+  </div>
+
+  <div class="col-md-4">
+    <label asp-for="email" class="form-label">Employee Email</label>
+    <input asp-for="email" type="email" class="form-control" required placeholder="name@company.com" />
+    <div class="invalid-feedback">Please provide a valid email.</div>
+  </div>
+
+  <div class="col-md-4">
+    <label asp-for="phone" class="form-label">Employee Mobile No.</label>
+    <div class="input-group has-validation">
+      <span class="input-group-text" id="inputGroupPrepend">+91</span>
+      <input asp-for="phone" class="form-control"
+             inputmode="numeric" pattern="^\d{10}$" maxlength="10" required
+             aria-describedby="mobileFeedback" placeholder="10-digit mobile number" />
+      <div id="mobileFeedback" class="invalid-feedback">
+        Please enter a valid mobile number.
+      </div>
+    </div>
+  </div>
+
+  <div class="col-md-4">
+    <label asp-for="department" class="form-label">Department</label>
+    <select asp-for="department" class="form-select" required>
+      <option value="">Choose...</option>
+      <option>Marketing</option>
+      <option>Sales</option>
+      <option>Operations</option>
+      <option>HR</option>
+      <option>R&amp;D</option>
+      <option>Finance</option>
+      <option>Legal</option>
+      <option>Management</option>
+    </select>
+    <div class="invalid-feedback">Please select a valid department.</div>
+  </div>
+
+  <div class="col-12">
+    <button class="btn btn-primary" type="submit">Add Details</button>
+  </div>
+</form>

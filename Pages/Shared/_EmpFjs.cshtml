@@ -1,0 +1,40 @@
+
+<script>
+document.addEventListener('DOMContentLoaded', function () {
+  const form = document.querySelector('.needs-validation');
+  if (!form) return;
+
+  const fields = form.querySelectorAll('input, select, textarea');
+
+  fields.forEach((el) => {
+    el.addEventListener('blur', () => {
+      if (el.value.trim() !== '' && !el.checkValidity()) {
+        el.classList.add('is-invalid');
+        el.classList.remove('is-valid');
+      } else if (el.checkValidity()) {
+        el.classList.remove('is-invalid');
+        el.classList.add('is-valid');
+      } else {
+        el.classList.remove('is-invalid', 'is-valid');
+      }
+    });
+
+    el.addEventListener('input', () => {
+      if (el.checkValidity()) {
+        el.classList.remove('is-invalid');
+        el.classList.add('is-valid');
+      } else {
+        el.classList.remove('is-valid');
+      }
+    });
+  });
+
+  form.addEventListener('submit', function (event) {
+    if (!form.checkValidity()) {
+      event.preventDefault();
+      event.stopPropagation();
+    }
+    form.classList.add('was-validated');
+  }, false);
+});
+</script>

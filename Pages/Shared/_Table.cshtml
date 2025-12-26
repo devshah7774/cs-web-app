@@ -1,0 +1,54 @@
+
+@model IEnumerable<web_app.Models.Employee>
+
+<div class="table-wrap table-hover">
+  <table>
+    <thead>
+      <tr>
+        <th>Emp Name</th>
+        <th>Emp PS No.</th>
+        <th>Emp Email</th>
+        <th>Emp Phone</th>
+        <th>Emp Dept</th>
+      </tr>
+    </thead>
+    <tbody>
+    @if (Model != null && Model.Any())
+    {
+        foreach (var emp in Model)
+        {
+            <tr>
+              <td>@($"{emp.FName} {emp.LName}")</td>
+              <td>@emp.PsNo</td>
+              <td>@emp.Email</td>
+              <td>@emp.Phone</td>
+              <td>@emp.Department</td>
+            </tr>
+        }
+    }
+    else
+    {
+        <tr>
+            <td colspan="5" style="text-align:center;color:var(--muted)">
+                No records found.
+            </td>
+        </tr>
+    }
+    </tbody>
+  </table>
+</div>
+
+<style>
+.table-wrap{overflow:auto; border-top:1px dashed var(--border); margin-top:8px}
+table{width:100%; border-collapse:collapse; min-width:680px}
+thead th{
+  text-align:left; font-weight:600; color:var(--muted);
+  background:#f9fafb; border-bottom:1px solid var(--border);
+  padding:12px 10px;
+}
+tbody td{
+  border-bottom:1px solid var(--border);
+  padding:12px 10px; vertical-align:middle;
+}
+tbody tr:hover{background:#fcfdff}
+</style>
