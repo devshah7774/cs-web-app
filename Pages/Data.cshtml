@@ -7,5 +7,13 @@
 
 <h2>Employees</h2>
 
-<!-- Render the shared table partial and pass the model -->
+@if (TempData["SuccessMessage"] is string smsg)
+{
+    <div class="alert alert-success">@smsg</div>
+}
+@if (TempData["WarningMessage"] is string wmsg)
+{
+    <div class="alert alert-warning">@wmsg</div>
+}
+
 <partial name="~/Pages/Shared/_Table.cshtml" model="Model.Employees" />

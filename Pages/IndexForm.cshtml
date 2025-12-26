@@ -1,13 +1,19 @@
 ﻿
 @page
-@model IndexModel
+@model web_app.Pages.IndexModel
 @{
     ViewData["Title"] = "Home page";
 }
 
-<div class="p-4 text-center"><h2>Employee Datails Addition Form</h2></div>
+<div class="p-4 text-center"><h2>Employee Details Addition Form</h2></div>
+
+@if (ViewData["SuccessMessage"] is string msg)
+{
+    <div class="alert alert-success text-center">@msg</div>
+}
 
 <partial name="_EmpForms" />
+
 @section Scripts {
     <partial name="_EmpFjs" />
 }

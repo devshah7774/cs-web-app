@@ -24,14 +24,35 @@
           <td>@emp.Email</td>
           <td>@emp.Phone</td>
           <td>@emp.Department</td>
-          <td><button>Edit</button><button>Delete</button></td>
+          <td class="nowrap">
+            <!-- Edit goes to the form page with psNo in querystring -->
+            <a class="btn btn-sm btn-outline-primary"
+               asp-page="/IndexForm"
+               asp-route-psNo="@emp.PsNo">
+              Edit
+            </a>
+
+            <!-- Delete posts back to /data with a named handler -->
+            <form method="post"
+                  asp-page="/Data"
+                  asp-page-handler="Delete"
+                  class="d-inline">
+              <input type="hidden" name="psNo" value="@emp.PsNo" />
+              @Html.AntiForgeryToken()
+              <button type="submit"
+                      class="btn btn-sm btn-outline-danger"
+                      onclick="return confirm('Delete this record?');">
+                Delete
+              </button>
+            </form>
+          </td>
         </tr>
       }
     }
     else
     {
       <tr>
-        <td colspan="5" style="text-align:center;color:var(--muted)">
+        <td colspan="6" style="text-align:center;color:var(--muted)">
           No records found.
         </td>
       </tr>
@@ -53,4 +74,5 @@ tbody td{
   padding:12px 10px; vertical-align:middle;
 }
 tbody tr:hover{background:#fcfdff}
+.nowrap{white-space:nowrap}
 </style>

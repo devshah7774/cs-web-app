@@ -3,6 +3,7 @@
 
 <form class="row g-3 bg-secondary rounded p-5 bg-opacity-50 needs-validation"
       method="post" novalidate>
+      @Html.AntiForgeryToken()
   <div class="col-md-4">
     <label asp-for="fName" class="form-label">Employee First Name</label>
     <input asp-for="fName" class="form-control" placeholder="Firstname" required />
