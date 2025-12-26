@@ -9,7 +9,7 @@ using System.Threading.Tasks;
 
 namespace web_app.Pages
 {
-    public class IndexModel : PageModel
+    public class IndexFormModel : PageModel
     {
         [BindProperty] public string fName { get; set; } = string.Empty;
         [BindProperty] public string lName { get; set; } = string.Empty;
@@ -19,11 +19,11 @@ namespace web_app.Pages
         [BindProperty] public string department { get; set; } = string.Empty;
 
         private readonly IConfiguration _config;
-        public IndexModel(IConfiguration config) => _config = config;
+        public IndexFormModel(IConfiguration config) => _config = config;
 
+        // Prefill on Edit
         public async Task<IActionResult> OnGetAsync(string? psNo)
         {
-            // Prefill when psNo is provided (Edit scenario)
             if (string.IsNullOrWhiteSpace(psNo))
                 return Page();
 
@@ -52,19 +52,20 @@ namespace web_app.Pages
             }
             else
             {
-                ViewData["SuccessMessage"] = $"No employee found for PS No {psNo}. You can add a new one.";
-                // keep psNo prefilled to allow adding new record with this psNo
+                // Not found: keep psNo prefilled for adding a new one
                 this.psNo = psNo;
+                ViewData["SuccessMessage"] = $"No employee found for PS No {psNo}. You can add a new one.";
             }
 
             return Page();
         }
 
+        // Upsert on Add Details
         public async Task<IActionResult> OnPostAsync()
         {
             if (!ModelState.IsValid) return Page();
 
-            // Server-side validations (optional but recommended)
+            // Server-side validations (recommended)
             if (!System.Text.RegularExpressions.Regex.IsMatch(psNo ?? "", @"^\d{8}$"))
             {
                 ModelState.AddModelError(nameof(psNo), "PS No must be 8 digits.");
@@ -87,7 +88,7 @@ namespace web_app.Pages
             using var conn = new SqlConnection(connStr);
             await conn.OpenAsync();
 
-            // ✅ Upsert pattern: Update; if no rows affected, Insert
+            // Upsert: Update; if nothing updated, Insert
             var sql = @"
                 UPDATE dbo.employees
                 SET fName = @fName,
@@ -114,12 +115,11 @@ namespace web_app.Pages
 
             await cmd.ExecuteNonQueryAsync();
 
-            // Show success and reset the form for the next entry
             ViewData["SuccessMessage"] = "Employee details saved successfully (inserted/updated).";
             ModelState.Clear();
             fName = lName = psNo = email = phone = department = string.Empty;
 
-            return Page(); // stay on the same page
+            return Page(); // stay on the form
         }
     }
 }
