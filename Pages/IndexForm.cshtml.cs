@@ -62,7 +62,7 @@ namespace web_app.Pages    // <-- adjust namespace to your project
             cmd.ExecuteNonQuery();
 
             // Redirect to a page or same page with a success message
-            return RedirectToPage("/Index");
+            return RedirectToPage("/IndexForm");
         }
     }
 }

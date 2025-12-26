@@ -26,7 +26,6 @@ namespace web_app.Pages
             var sql = @"
                 SELECT fName, lName, psNo, email, phone, department
                 FROM dbo.employees
-                ORDER BY psNo ASC
             ";
 
             using var cmd = new SqlCommand(sql, conn);

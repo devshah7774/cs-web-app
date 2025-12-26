@@ -10,29 +10,31 @@
         <th>Emp Email</th>
         <th>Emp Phone</th>
         <th>Emp Dept</th>
+        <th>Change</th>
       </tr>
     </thead>
     <tbody>
     @if (Model != null && Model.Any())
     {
-        foreach (var emp in Model)
-        {
-            <tr>
-              <td>@($"{emp.FName} {emp.LName}")</td>
-              <td>@emp.PsNo</td>
-              <td>@emp.Email</td>
-              <td>@emp.Phone</td>
-              <td>@emp.Department</td>
-            </tr>
-        }
+      foreach (var emp in Model)
+      {
+        <tr>
+          <td>@($"{emp.FName} {emp.LName}")</td>
+          <td>@emp.PsNo</td>
+          <td>@emp.Email</td>
+          <td>@emp.Phone</td>
+          <td>@emp.Department</td>
+          <td><button>Edit</button><button>Delete</button></td>
+        </tr>
+      }
     }
     else
     {
-        <tr>
-            <td colspan="5" style="text-align:center;color:var(--muted)">
-                No records found.
-            </td>
-        </tr>
+      <tr>
+        <td colspan="5" style="text-align:center;color:var(--muted)">
+          No records found.
+        </td>
+      </tr>
     }
     </tbody>
   </table>
